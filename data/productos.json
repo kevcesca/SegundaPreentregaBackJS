@@ -48,5 +48,16 @@
     "category": "Productos",
     "thumbnails": [],
     "status": true
+  },
+  {
+    "id": 8,
+    "title": "Producto nuevardo",
+    "description": "Otra prueba de productos",
+    "code": "dfsfds231",
+    "price": "5",
+    "stock": "7",
+    "category": "Productos",
+    "thumbnails": [],
+    "status": true
   }
 ]
