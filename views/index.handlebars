@@ -1,0 +1,9 @@
+{{!< main}}
+<div class="mt-4">
+    <h1 class="mb-4">Lista de Productos</h1>
+    <ul class="list-group">
+        {{#each products}}
+            <li class="list-group-item">{{this.title}} - {{this.description}} - ${{this.price}}</li>
+        {{/each}}
+    </ul>
+</div>

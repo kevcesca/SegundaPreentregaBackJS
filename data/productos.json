@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "title": "Nuevo producto 2",
+    "description": "Esta descripcion ta bonita.",
+    "code": "5sad45fafs",
+    "price": 5,
+    "status": true,
+    "stock": 50,
+    "category": "Electronica",
+    "thumbnails": [
+      "http://url.com/image1.jpg"
+    ]
+  },
+  {
+    "title": "New Product Example",
+    "description": "This is a description of the new product.",
+    "code": "ABC123XYZ",
+    "price": 19.99,
+    "status": true,
+    "stock": 50,
+    "category": "Electronics",
+    "thumbnails": [
+      "http://example.com/image1.jpg"
+    ],
+    "id": 5
+  },
+  {
+    "title": "New Product Example",
+    "description": "This is a description of the new product.",
+    "code": "ABC123XYZ",
+    "price": 19.99,
+    "status": true,
+    "stock": 50,
+    "category": "Electronics",
+    "thumbnails": [
+      "http://example.com/image1.jpg"
+    ],
+    "id": 6
+  },
+  {
+    "id": 7,
+    "title": "Producto nuevito",
+    "description": "Este producto es una prueba",
+    "code": "dfsfds231",
+    "price": "5",
+    "stock": "4",
+    "category": "Productos",
+    "thumbnails": [],
+    "status": true
+  }
+]

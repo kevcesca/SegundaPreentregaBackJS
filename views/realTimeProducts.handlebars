@@ -1,0 +1,101 @@
+{{!< main}}
+<div class="mt-4">
+    <h1 class="mb-4">Productos en Tiempo Real</h1>
+    <ul id="product-list" class="list-group">
+        {{#each products}}
+            <li id="product-{{this.id}}" class="list-group-item d-flex justify-content-between align-items-center">
+                <span>{{this.title}} - {{this.description}} - ${{this.price}}</span>
+                <button class="btn btn-danger btn-sm" onclick="deleteProduct({{this.id}})">Eliminar</button>
+            </li>
+        {{/each}}
+    </ul>
+
+    <h2 class="mt-4">Agregar Nuevo Producto</h2>
+    <form id="addProductForm" class="mt-3">
+        <div class="form-group">
+            <input type="text" id="title" class="form-control" placeholder="Título" required>
+        </div>
+        <div class="form-group">
+            <input type="text" id="description" class="form-control" placeholder="Descripción" required>
+        </div>
+        <div class="form-group">
+            <input type="number" id="price" class="form-control" placeholder="Precio" required>
+        </div>
+        <div class="form-group">
+            <input type="text" id="code" class="form-control" placeholder="Código" required>
+        </div>
+        <div class="form-group">
+            <input type="number" id="stock" class="form-control" placeholder="Stock" required>
+        </div>
+        <div class="form-group">
+            <input type="text" id="category" class="form-control" placeholder="Categoría" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar Producto</button>
+    </form>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+
+    socket.on('updateProducts', (product) => {
+        const productList = document.getElementById('product-list');
+        if (product.deleted) {
+            const itemToRemove = document.querySelector(`#product-${product.id}`);
+            if (itemToRemove) {
+                productList.removeChild(itemToRemove);
+            }
+        } else {
+            const newProduct = document.createElement('li');
+            newProduct.id = `product-${product.id}`;
+            newProduct.className = 'list-group-item d-flex justify-content-between align-items-center';
+            newProduct.innerHTML = `<span>${product.title} - ${product.description} - $${product.price}</span> <button class="btn btn-danger btn-sm" onclick="deleteProduct(${product.id})">Eliminar</button>`;
+            productList.appendChild(newProduct);
+        }
+    });
+
+    document.getElementById('addProductForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const title = document.getElementById('title').value;
+        const description = document.getElementById('description').value;
+        const price = document.getElementById('price').value;
+        const code = document.getElementById('code').value;
+        const stock = document.getElementById('stock').value;
+        const category = document.getElementById('category').value;
+
+        fetch('/api/products', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                title,
+                description,
+                price,
+                code,
+                stock,
+                category
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Producto agregado:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    });
+
+    function deleteProduct(id) {
+        fetch(`/api/products/${id}`, {
+            method: 'DELETE',
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Producto eliminado:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+</script>
